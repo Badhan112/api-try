@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bored API Random Activity</title>
+</head>
+<body>
+    <h1 id="activity"></h1>
+    <h2 id="type"></h2>
+    <h4 id="participants"></h4>
+    <h3>Learn From: <a id="link">Visit This Site</a></h3>
+    
+    <script>
+        function takeActivity(){
+            fetch("http://www.boredapi.com/api/activity/")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("activity").innerText = `Activity: ${data.activity}`;
+                document.getElementById("type").innerText = `Type: ${data.type}`;
+                document.getElementById("participants").innerText = `Participants: ${data.participants}`;
+                document.getElementById("link").setAttribute("href", data.link);
+            })
+            .catch(error => alert("ERROR"));
+        }
+
+        takeActivity();
+        setInterval(() => {
+            takeActivity();
+        }, 5000);
+    </script>
+</body>
+</html>

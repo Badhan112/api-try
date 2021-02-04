@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Who Am I</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        #profile-pic{
+            border-radius: 50%;
+            margin-top: 50px;
+        }
+        #user-details{
+            margin: 50px;
+            padding: 50px;
+            background-color: rgb(221, 221, 221);
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="user-details">
+        <img src="" alt="User Picture" id="profile-pic">
+        <h1 id="name"></h1>
+        <h3 id="gender"></h3>
+        <h3 id="phone"></h3>
+    </div>
+
+    <script>
+        // https://randomuser.me/
+        function getRandomUser(){
+            fetch("https://randomuser.me/api/")
+            .then(response => response.json())
+            .then(data => {
+                const userData = data.results[0];
+                const userPicture = userData.picture;
+                const userName = userData.name;
+                const gender = userData.gender;
+                const phone = userData.phone;
+
+                document.getElementById("profile-pic").setAttribute("src", userPicture.large);
+                document.getElementById("name").innerText = `${userName.title} ${userName.first} ${userName.last}`;
+                document.getElementById("gender").innerText = `Gender: ${gender}`;
+                document.getElementById("phone").innerText = `Phone: ${phone}`;
+            })
+            .catch(error => alert("ERROR"));
+        }
+
+        getRandomUser();
+        setInterval(() => {
+            getRandomUser();
+        }, 5000);
+    </script>
+    
+</body>
+</html>

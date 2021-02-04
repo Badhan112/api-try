@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsonplaceholder user names list</title>
+</head>
+<body>
+    <h1>jsonplaceholder.typicode.com</h1>
+    <h3>User Names</h3>
+    <ul id="userName-list"></ul>
+
+    <script>
+        function displayUserNames(users){
+            const userNames = users.map(user => user.username);
+            const ul = document.getElementById("userName-list");
+            userNames.forEach(userName => {
+                const li = document.createElement("li");
+                li.innerText = userName;
+                ul.appendChild(li);                
+            });
+        }
+
+        fetch("http://jsonplaceholder.typicode.com/users")
+        .then(response => response.json())
+        .then(data => displayUserNames(data))
+        .catch(error => alert("Something Went Wrong"));
+    </script>
+</body>
+</html>
